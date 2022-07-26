@@ -1,1 +1,1 @@
-Lightweight dockers for cloud
+Smaller dockers for cloud
