@@ -1,0 +1,13 @@
+# comment
+*/temp*
+*/*/temp*
+temp?
+.env
+.editorconfig
+.git
+.github
+.cache
+*.md
+LICENSE
+Makefile
+vendor/
