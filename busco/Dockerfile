@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
     hmmer \
     && rm -rf /var/lib/apt/lists/* && apt-get autoclean
 
-# Instal BUSCO
+# Install BUSCO
 RUN python3 -m pip install --no-cache-dir -U pandas biopython==1.73 &&\
     wget https://gitlab.com/ezlab/busco/-/archive/5.3.2/busco-5.3.2.tar.gz &&\
     tar -xvf busco-5.3.2.tar.gz && \
