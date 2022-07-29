@@ -26,12 +26,12 @@ LABEL description="Kraken2 with Bracken"
 LABEL maintainer="Kutluhan Incekara"
 LABEL maintainer.email="kutluinct@gmail.com"
 
-RUN apt-get update && apt-get install -y perl python-is-python3 
+RUN apt-get update && apt-get install -y perl python-is-python3 libgomp1 \
+&& rm -rf /var/lib/apt/lists/* && apt-get autoclean
 
 COPY --from=builder /kraken2 /kraken2
 COPY --from=builder /Bracken-2.7 /Bracken-2.7
 
-ENV PATH="${PATH}:/kraken2"
-ENV PATH="${PATH}:/Bracken-2.7"
+ENV PATH="${PATH}:/kraken2:/Bracken-2.7"
 
 WORKDIR /data
