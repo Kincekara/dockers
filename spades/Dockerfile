@@ -21,4 +21,4 @@ RUN wget http://cab.spbu.ru/files/release3.15.5/SPAdes-3.15.5-Linux.tar.gz &&\
 
 ENV PATH="${PATH}:/SPAdes-3.15.5-Linux/bin/"
 
-WORKDIR /data
+WORKDIR /
