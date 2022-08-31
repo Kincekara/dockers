@@ -45,10 +45,13 @@ def main():
     ## MLST##
     mlst_df = pd.read_csv(mlst_report, sep="\t", skiprows=1, header=None)
     mlst_df = mlst_df.drop(columns=0)
-    columns = ['Scheme','Type (ST)','Alleles']    
-    for i in range(3,len(mlst_df.columns)):
-        columns.append('')
-    mlst_df.columns = columns
+    columns = ['Scheme','Type (ST)','Alleles']
+    if len(mlst_df.columns) < 3:
+        mlst_df = pd.DataFrame(columns=columns)
+    else:
+        for i in range(3,len(mlst_df.columns)):
+            columns.append('')
+        mlst_df.columns = columns
 
     ## AMR ##  
     r_df =  pd.read_csv(amr_report, sep = '\t')
