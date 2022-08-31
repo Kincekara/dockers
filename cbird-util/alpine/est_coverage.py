@@ -15,7 +15,8 @@ def main():
     q30_bases = sys.argv[2]
     top_taxid = sys.argv[3]
     alt_gs = sys.argv[4]
-    
+    genome_length = sys.argv[5]
+
     # get assembly stats file
     gs_df = pd.read_csv(stats_file, sep = '\t')
     
@@ -36,6 +37,11 @@ def main():
     with open("COVERAGE", "w") as cov:
         coverage = str(round(int(basenum) / int(exp_gs))) + "X"
         cov.write(coverage)
+        
+    # calculate & write genome ratio
+    with open("GENOME_RATIO", "w") as r:
+        ratio = round((int(genome_length) / int(exp_gs)),2)
+        r.write(str(ratio))
 
 if __name__ == "__main__":
     main()
