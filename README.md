@@ -1,1 +1,1 @@
-Smaller dockers for cloud
+Minimal dockers for C_BIRD and cloud apps.
