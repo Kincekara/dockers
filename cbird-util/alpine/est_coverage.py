@@ -35,8 +35,8 @@ def main():
         
     # calculate & write sequencing depth
     with open("COVERAGE", "w") as cov:
-        coverage = str(round(int(basenum) / int(exp_gs))) + "X"
-        cov.write(coverage)
+        coverage = round((int(basenum) / int(exp_gs)),2)
+        cov.write(str(coverage))
         
     # calculate & write genome ratio
     with open("GENOME_RATIO", "w") as r:
