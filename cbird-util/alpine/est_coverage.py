@@ -26,22 +26,28 @@ def main():
         basenum = q30.readline()
         
     # find top hit's expected genome size
-    x = gs_df.loc[gs_df ["#species_taxid"]==top_taxid, "expected_ungapped_length"]
+    x = gs_df.loc[gs_df ["#species_taxid"]==int(top_taxid), "expected_ungapped_length"]
     if (len(x) != 0):
-        exp_gs = x[0]
+        exp_gs = str(x.values[0])
     else:
        with open(alt_gs, "r") as f:
            exp_gs = f.readline()
         
-    # calculate & write sequencing depth
-    with open("COVERAGE", "w") as cov:
-        coverage = round((int(basenum) / int(exp_gs)),2)
-        cov.write(str(coverage))
-        
-    # calculate & write genome ratio
-    with open("GENOME_RATIO", "w") as r:
-        ratio = round((int(genome_length) / int(exp_gs)),2)
-        r.write(str(ratio))
+    # calculate sequencing depth & genome ratio
+    if len(exp_gs) == 0:
+        # write zero if there is no estimated genome size found
+        with open("COVERAGE", "w") as cov:
+            cov.write("0")            
+        with open("GENOME_RATIO", "w") as r:
+            r.write("0")
+    else:
+        with open("COVERAGE", "w") as cov:
+            coverage = round((int(basenum) / int(exp_gs)),2)
+            cov.write(str(coverage))
+            
+        with open("GENOME_RATIO", "w") as r:
+            ratio = round((int(genome_length) / int(exp_gs)),2)
+            r.write(str(ratio))
 
 if __name__ == "__main__":
     main()
