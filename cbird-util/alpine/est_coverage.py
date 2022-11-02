@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Covarerage calculating script for C-BIRD workflow
+Coverage calculating script for C-BIRD workflow
 Created on Thu Aug  4 13:43:46 2022
 
 @author: Kutluhan Incekara
@@ -34,20 +34,23 @@ def main():
            exp_gs = f.readline()
         
     # calculate sequencing depth & genome ratio
-    if len(exp_gs) == 0:
-        # write zero if there is no estimated genome size found
-        with open("COVERAGE", "w") as cov:
-            cov.write("0")            
-        with open("GENOME_RATIO", "w") as r:
-            r.write("0")
-    else:
-        with open("COVERAGE", "w") as cov:
-            coverage = round((int(basenum) / int(exp_gs)),2)
-            cov.write(str(coverage))
-            
-        with open("GENOME_RATIO", "w") as r:
-            ratio = round((int(genome_length) / int(exp_gs)),2)
-            r.write(str(ratio))
+    coverage = 0.0
+    ratio = 0.0
+    try:
+        coverage = round((int(basenum) / int(exp_gs)),2)
+    except ValueError:
+        print("Someting wrong in coverage calculation")
+    finally:
+         with open("COVERAGE", "w") as cov:
+            cov.write(str(coverage))       
 
+    try:                
+        ratio = round((int(genome_length) / int(exp_gs)),2)
+    except ValueError:
+        print("Someting wrong in genome ratio calculation")
+    finally:
+        with open("GENOME_RATIO", "w") as r:
+            r.write(str(ratio))
+        
 if __name__ == "__main__":
     main()

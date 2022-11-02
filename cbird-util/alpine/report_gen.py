@@ -60,7 +60,7 @@ def main():
     amr_df2 = amr_df2.rename(columns={'Gene symbol':'Gene','Sequence name':'Description','Class':'AR Class',
                                       'Subclass':'AR Subclass','% Coverage of reference sequence':'Coverage(%)',
                                       '% Identity to reference sequence':'Identity(%)'})
-    amr_df2 = amr_df2.sort_values(by=['Coverage(%)', 'Identity(%)','Gene'], ascending=False)
+    amr_df2 = amr_df2.sort_values(by=['AR Class','AR Subclass'], ascending=False)
 
     ## Plasmid ##
     p_df = pd.read_csv(plasmid_report, sep = '\t')
