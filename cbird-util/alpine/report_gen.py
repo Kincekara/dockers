@@ -26,6 +26,7 @@ def main():
     amr_report = sys.argv[4]
     plasmid_report = sys.argv[5]
     version = sys.argv[6]
+    footer_note = sys.argv[7]
 
     ## Bracken ##
     # get bracken report
@@ -60,7 +61,7 @@ def main():
     amr_df2 = amr_df2.rename(columns={'Gene symbol':'Gene','Sequence name':'Description','Class':'AR Class',
                                       'Subclass':'AR Subclass','% Coverage of reference sequence':'Coverage(%)',
                                       '% Identity to reference sequence':'Identity(%)'})
-    amr_df2 = amr_df2.sort_values(by=['AR Class','AR Subclass'], ascending=False)
+    amr_df2 = amr_df2.sort_values(by=['AR Class','AR Subclass'], ascending=True)
 
     ## Plasmid ##
     p_df = pd.read_csv(plasmid_report, sep = '\t')
@@ -73,7 +74,7 @@ def main():
     page_title = samplename
     title = "Report"
     stitle1 = "Sample Information"
-    stitle2 = "Microorganism(s) Identified"
+    stitle2 = "Taxonomic Estimation"
     stitle3 = "MLST Typing"
     stitle4 = "Resistance"
     stitle5 = "Plasmids Detected"
@@ -159,7 +160,11 @@ def main():
         table.dataframe th {{
           background-color: #1e5c85;
           color: white;
-        }}      
+        
+        }}
+        footer {{
+			    font-size: 0.8em
+		    }}      
         </style>
     </head>
     <body>
@@ -191,7 +196,8 @@ def main():
     </article>
     <hr>
     <footer>
-      <p><i>This report is created by <a href="https://github.com/Kincekara/C-BIRD">{version}</a> bioinformatics pipeline.</i></p>
+      <p><i>This report is created by <a href="https://github.com/Kincekara/C-BIRD">{version}</a> bioinformatics pipeline.</br>
+      {footer_note}</i></p>
     </footer>
   </body>
 </html>
