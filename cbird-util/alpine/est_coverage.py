@@ -12,7 +12,7 @@ import pandas as pd
 
 def main():
     stats_file = sys.argv[1]
-    q30_bases = sys.argv[2]
+    total_bases = sys.argv[2]
     top_taxid = sys.argv[3]
     alt_gs = sys.argv[4]
     genome_length = sys.argv[5]
@@ -22,8 +22,8 @@ def main():
     
     ## Coverage ##
     # get total base number
-    with open(q30_bases, "r") as q30:
-        basenum = q30.readline()
+    with open(total_bases, "r") as tb:
+        basenum = tb.readline()
         
     # find top hit's expected genome size
     x = gs_df.loc[gs_df ["#species_taxid"]==int(top_taxid), "expected_ungapped_length"]
