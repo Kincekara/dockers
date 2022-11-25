@@ -74,7 +74,7 @@ def main():
     page_title = samplename
     title = "Report"
     stitle1 = "Sample Information"
-    stitle2 = "Taxonomic Estimation"
+    stitle2 = "Identification and Abundance Estimation"
     stitle3 = "MLST Typing"
     stitle4 = "Resistance"
     stitle5 = "Plasmids Detected"
