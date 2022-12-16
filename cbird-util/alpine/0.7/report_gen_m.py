@@ -25,8 +25,9 @@ def main():
     mlst_report =sys.argv[3]
     amr_report = sys.argv[4]
     plasmid_report = sys.argv[5]
-    version = sys.argv[6]
-    footer_note = sys.argv[7]
+    mash_report = sys.argv[6]
+    version = sys.argv[7]
+    footer_note = sys.argv[8]    
 
     ## Bracken ##
     # get bracken report
@@ -69,18 +70,21 @@ def main():
     p_df2 = p_df2.sort_values(by=['Identity','Plasmid'], ascending=False)
     p_df2 = p_df2.rename(columns={'Identity':'Identity(%)'})
 
+    ## Mash ##
+    m_df = pd.read_csv(mash_report, sep = '\t', header=None)
+    m_df.columns = ['Microorganism', 'Identity(%)']
 
     ## Report template ##
     page_title = samplename
     title = "Report"
     stitle1 = "Sample Information"
-    stitle2 = "Identification and Abundance Estimation"
+    stitle2 = "Taxonomic Profile of Reads"
     stitle3 = "MLST Typing"
     stitle4 = "Resistance"
     stitle5 = "Plasmids Detected"
+    mtitle = "Predicted Organism"
     today = date.today()
-    
-    
+      
     if mlst_df.empty:
         mlst_txt = "No MLST scheme is found!"
     else:
@@ -95,7 +99,7 @@ def main():
         plasmid_txt = "No plasmid is found!"
     else:
         plasmid_txt = p_df2.to_string(index=False)
-    
+
     # write txt file
     with open(samplename + "_txt_report.txt", "w") as f:
         f.write(title + "\n\n")
@@ -103,9 +107,12 @@ def main():
         f.write(stitle1 + "\n")
         f.write("Report date: " +  today.strftime("%B %d, %Y") + "\n")
         f.write("Laboratory ID: " + samplename + "\n\n")
-        # Microorganisms
+        # Bracken
         f.write(stitle2 + "\n")
         f.write(b_df2.to_string(index=False) + "\n\n")
+        # Mash
+        f.write(mtitle + "\n")
+        f.write(m_df.to_string(index=False) + "\n\n")
         # MLST
         f.write(stitle3 + "\n")
         f.write(mlst_txt + "\n\n")
@@ -186,6 +193,8 @@ def main():
      </table>
     <h2>{stitle2}</h2>
     {b_df2.to_html(index=False, justify="left")}
+    <h2>{mtitle}</h2>
+    {m_df.to_html(index=False, justify="left")}
     <h2>{stitle3}</h2>
     {mlst_df.to_html(index=False, justify="left")}
     <h2>{stitle4}</h2>
