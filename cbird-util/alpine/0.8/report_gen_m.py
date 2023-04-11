@@ -12,7 +12,6 @@ import pandas as pd
 from datetime import date
 
 # Define functions
-
 def read_bracken_report(taxon_report):
     # get bracken report
     df = pd.read_csv(taxon_report, sep = '\t')
@@ -64,7 +63,13 @@ def read_mash_report(mash_report):
     return df
 
 def read_blast_report(blast_report):
-    df = pd.read_csv(mash_report, sep = '\t')
+    df = pd.read_csv(blast_report, sep = '\t')
+    if not df.empty:
+        df['Coverage(%)'] = abs((df['send'] - df['sstart'] +1)//3) / (df['qend'] - df['qstart'] +1 )*100
+        df.drop(columns=['sseqid', 'mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore'], inplace=True)
+        df.rename(columns={'qseqid':'Gene','pident':'Identity(%)','length':'Length'}, inplace=True)
+        df=df[['Gene','Length','Identity(%)', 'Coverage(%)']]
+    return df
 
 
 # Main
