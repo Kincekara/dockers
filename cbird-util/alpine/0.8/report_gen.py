@@ -83,16 +83,19 @@ def read_blast_report(blast_report):
     return df
 
 def clia_report(samplename, mash, amr, version, footer):
+    m = mash.copy()
+    m['temp'] = m['Microorganism'].apply(lambda x: x.split()[0]+" "+x.split()[1])
     # Enterobacter cloacae complex
-    ecc = ["Enterobacter cloacae complex sp.", "Enterobacter cloacae", "Enterobacter hormaechei",
+    ecc = ["Enterobacter cloacae", "Enterobacter hormaechei", "Enterobacter sichuanensis",
     "Enterobacter asburiae", "Enterobacter cancerogenus", "Enterobacter chengduensis",
-    "Enterobacter kobei", "Enterobacter ludwigii", "Enterobacter roggenkampii", "Enterobacter sichuanensis"]
-    mash.loc[mash['Microorganism'].isin(ecc), 'Microorganism'] = "Enterobacter cloacae complex"
+    "Enterobacter kobei", "Enterobacter ludwigii", "Enterobacter roggenkampii"]
+    m.loc[m['temp'].isin(ecc), 'Microorganism'] = "Enterobacter cloacae complex"
     # Klebsiella oxytoca complex
     koc = ["Klebsiella oxytoca", "Klebsiella michiganensis", "Klebsiella grimontii", "Klebsiella huaxiensis",
     "Klebsiella huaxiensis", "Klebsiella pasteurii", "Klebsiella spallanzanii"]
-    mash.loc[mash['Microorganism'].isin(koc), 'Microorganism'] = "Klebsiella oxytoca complex"
-    
+    m.loc[m['temp'].isin(koc), 'Microorganism'] = "Klebsiella oxytoca complex"
+    m.drop(columns=['temp'], inplace=True)
+
     # report
     page_title = samplename
     title = "Report"
@@ -168,7 +171,7 @@ def clia_report(samplename, mash, amr, version, footer):
         </tr>
         </table>
         <h2>{stitle2}</h2>
-        {mash.to_html(index=False, justify="left")}
+        {m.to_html(index=False, justify="left")}
         <h2>{stitle3}</h2>
         {amr.to_html(index=False, justify="left")}
         <p></p>
@@ -333,7 +336,7 @@ def main(args):
         # create empty dataframe
         mash = pd.DataFrame(columns=['Microorganism', 'Identity(%)'])
         
-    # write summary report
+    # write summary report    
     epi_report(samplename, bracken, mlst, amr, stress, virulence, plasmid, blast, mash, version)       
         
 if __name__ == "__main__":
