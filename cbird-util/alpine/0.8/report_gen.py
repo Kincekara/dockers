@@ -341,12 +341,11 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--taxon_report', type=str, help='Bracken report file', required=True)
     parser.add_argument('-st', '--mlst_report', type=str, help='MLST report file', required=True)
     parser.add_argument('-a', '--amr_report',  type=str, help='AMRFinderPlus report file', required=True)
-    parser.add_argument('-p', '--plasmid_report', type=str, help='PlasmidFinder report file', required=True)
+    parser.add_argument('-p', '--plasmid_report', type=str, help='PlasmidFinder report file', required=True)    
+    parser.add_argument('-c', '--cbird_version',  type=str, help='C-BIRD version', required=True)    
     parser.add_argument('-m', '--mash_report',  type=str, help='MASH report file')
-    parser.add_argument('-c', '--cbird_version',  type=str, help='C-BIRD version', required=True)
-    parser.add_argument('-f', '--footer_note',  type=str, help='Disclaimer text', default="")
     parser.add_argument('-b', '--blast_report', type=str, help='Blast report file')
-
+    parser.add_argument('-f', '--footer_note',  type=str, help='Disclaimer text', default="")
     args = parser.parse_args()
 
     main(args)

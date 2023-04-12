@@ -14,7 +14,7 @@ mkdir data &&\
 wget 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/LATEST/linux-amd64/datasets' &&\
 chmod +x datasets && mv datasets /data/
 
-COPY report_gen.py report_gen_m.py est_coverage.py qc_report.py /data/
+COPY report_gen.py est_coverage.py qc_report.py /data/
 
 ENV PATH="${PATH}:/data"
 
