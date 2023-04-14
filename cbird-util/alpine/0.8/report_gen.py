@@ -52,10 +52,11 @@ def read_amr_report(amr_report):
     stress_df = df2.loc[df2['Element type'] == "STRESS"]
     stress_df = stress_df.drop(columns={'Element type'})
     stress_df = stress_df.sort_values(by=['AR Class','AR Subclass'], ascending=True)
+    stress_df = stress_df.fillna("")
 
     vir_df = df2.loc[df2['Element type'] == "VIRULENCE"]
     vir_df = vir_df.drop(columns={'Element type','AR Class','AR Subclass'})
-
+    
     df_list = [amr_df, stress_df, vir_df]
     return df_list
 
@@ -199,7 +200,7 @@ def epi_report(samplename, bracken, mlst, amr, stress, virulence, plasmid, blast
     stitle5 = "Resistance Genes"
     stitle6 = "Stress Genes"
     stitle7 = "Hypervirulance Genes"
-    stitle8 = "Target Protein Search"
+    stitle8 = "Target Gene Search"
     stitle9 = "Plasmids Detected"    
     today = date.today()
     footer = "Research use only."
