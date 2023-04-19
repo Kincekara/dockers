@@ -11,7 +11,7 @@ LABEL maintainer.email="kutluinct@gmail.com"
 
 RUN apk add --no-cache bash python3 py3-pandas jq wget py3-lxml py3-argparse &&\
 mkdir data &&\
-wget 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/LATEST/linux-amd64/datasets' &&\
+wget 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/linux-amd64/datasets' &&\
 chmod +x datasets && mv datasets /data/
 
 COPY report_gen.py est_coverage.py qc_report.py /data/
