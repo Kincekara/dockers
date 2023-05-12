@@ -10,7 +10,7 @@ LABEL description="Fast genome and metagenome distance estimation using MinHash"
 LABEL maintainer="Kutluhan Incekara"
 LABEL maintainer.email="kutluinct@gmail.com"
 
-RUN apt-get update && apt-get install -y wget &&\
+RUN apt-get update && apt-get install -y wget pigz &&\
     rm -rf /var/lib/apt/lists/* && apt-get autoclean &&\
     wget https://github.com/marbl/Mash/releases/download/v2.3/mash-Linux64-v2.3.tar &&\
     tar -xvf mash-Linux64-v2.3.tar --no-same-owner &&\
