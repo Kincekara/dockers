@@ -4,7 +4,7 @@ FROM ubuntu:focal AS builder
 ARG KRAKEN_VER="v2.1.2"
 ARG BRACKEN_VER="v2.8"
 
-RUN apt-get update && apt-get install -y build-essential perl wget
+RUN apt-get update && apt-get install -y build-essential perl wget zlib1g-dev
 
 # install Kraken2
 RUN wget https://github.com/DerrickWood/kraken2/archive/${KRAKEN_VER}.tar.gz &&\
