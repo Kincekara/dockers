@@ -18,6 +18,9 @@ RUN wget --no-check-certificate https://github.com/marbl/Mash/releases/download/
     rm mash-Linux64-${MASH_VER}.tar &&\
     mv /mash-Linux64-${MASH_VER}/mash /usr/local/bin/
 
-ADD https://drive.google.com/host/15dqAEt0qicyVMKYN1h7UZ5xH_sxbyFdV/cbird_s10k_221222.msh /
+# download cbird mash sketch from gdrive
+RUN wget --no-check-certificate --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1OH5UXvNnBWWLMNsKwz3QwGFB2RML8HV_' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1OH5UXvNnBWWLMNsKwz3QwGFB2RML8HV_" -O cbird_s10k_221222.msh &&\
+    rm -rf /tmp/cookies.txt
 
 WORKDIR /data
+
