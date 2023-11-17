@@ -23,15 +23,16 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     ncbi-blast+ &&\
     apt-get autoclean && rm -rf /var/lib/apt/lists/*
 
-RUN wget --no-check-certificate https://bitbucket.org/genomicepidemiology/plasmidfinder/get/${PLASMIDFINDER_VER}.tar.gz && \
+RUN echo ${PLASMIDFINDER_VER} > VERSION &&\
+    echo ${PLASMIDFINDER_DB_DATE} > DB_DATE &&\
+    wget --no-check-certificate https://bitbucket.org/genomicepidemiology/plasmidfinder/get/${PLASMIDFINDER_VER}.tar.gz && \
     tar -C /usr/local/bin/ --strip-components=1 --wildcards -xvf ${PLASMIDFINDER_VER}.tar.gz */plasmidfinder.py &&\
     rm ${PLASMIDFINDER_VER}.tar.gz &&\
     wget --no-check-certificate https://bitbucket.org/genomicepidemiology/plasmidfinder_db/get/314d85f43e4e018baf35a2b093d9adc1246bc88d.tar.gz &&\
     mkdir plasmidfinder_db &&\
     tar -C /plasmidfinder_db --strip-components=1 -xvf 314d85f43e4e018baf35a2b093d9adc1246bc88d.tar.gz &&\
     rm 314d85f43e4e018baf35a2b093d9adc1246bc88d.tar.gz &&\
-    cd plasmidfinder_db && python3 INSTALL.py kma_index &&\
-    echo ${PLASMIDFINDER_DB_DATE} > DB_DATE
+    cd plasmidfinder_db && python3 INSTALL.py kma_index
 
 ENV LC_ALL=C
 
