@@ -78,7 +78,7 @@ def read_blast_report(blast_report):
         df['Coverage(%)'] = df['length'] / df['qlen'] * 100
         df.drop(columns=['sseqid', 'mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore'], inplace=True)
         df.rename(columns={'qseqid':'Gene','pident':'Identity(%)','length':'Length'}, inplace=True)
-        df=df[['Gene','Length','Coverage(%)','Identity(%)']]
+        df=df[['Gene','Length','Coverage(%)','Identity(%)']].round(2)
     else:
         df=pd.DataFrame(columns=['Gene','Length','Coverage(%)','Identity(%)'])
     return df
